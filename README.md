@@ -1,3 +1,6 @@
+# Milestone 2
+
+
 # Finance Tracker
 
 ## Overview
@@ -91,4 +94,3 @@ An Example Purchase:
 ## Annotations / References Used
 
 1. [Receipt Scanner docs](https://www.npmjs.com/package/receipt-scanner?activeTab=readme)
-
