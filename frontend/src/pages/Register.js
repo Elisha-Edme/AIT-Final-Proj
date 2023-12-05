@@ -29,13 +29,9 @@ const Register = () => {
         const api_url = 'https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/user/register';
         const postData = {name, password};
         const sendPostRequest = async () => {
-            try {
-                const response = await axios.post(api_url, postData);
-                console.log('Response:', response.data);
-                navigate('/');
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            const response = await axios.post(api_url, postData);
+            console.log('Response:', response.data);
+            navigate('/');
         };
         
         // Clear the form after submission
