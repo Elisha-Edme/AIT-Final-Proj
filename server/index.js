@@ -3,32 +3,15 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const cors = require('cors');
-const purchase = require('./models/purchaseModel');
-const user = require('./models/userModel');
-const workoutRoutes = require('./routes/workoutRoutes');
+const Purchase = require('./models/purchaseModel');
+const User = require('./models/userModel');
+const userRoutes = require('./routes/workoutRoutes');
 require('dotenv').config();
 
 const app = express();
 app.use(express.json())
-//app.use('/api/', workoutRoutes);
-app.get('/', async (req, res) => {
-  await purchase.deleteMany({});
-  // await purchase.create({"Retailer": "BJs",
-  // "BoughtTime": new Date("2023-09-12"),// timestamp
-  // "Cost": 62.00,// cost of purchase
-  // "PaymentMethod": "BoFA",
-  // "Category": "Groceries"})
-  res.send(await purchase.find({}));
-});
-app.get('/login', (req, res) => {
-  
-});
-app.post('/login', (req, res) => {
-  const {name, password} = req.body;
-  user.findOne({name, password})
-  .then(res.redirect('/'))
-  .catch(res.send('ERROR'));
-});
+app.use('/api/', userRoutes);
+
 const connect = async () => mongoose.connect(process.env.MONGO_URI);
 connect().then(() => {
   console.log('MongoDB connected properly!')
@@ -48,4 +31,3 @@ connect().then(() => {
   //     res.status(500).json({ error: 'Internal Server Error' });
   //   }
   // });   
-
