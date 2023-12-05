@@ -17,7 +17,9 @@ connect().then(() => {
   console.log('MongoDB connected properly!')
   app.listen(process.env.PORT || 3000)
 }).catch(console.log);
-
+app.get('/', (req, res) => {
+  res.json('Hello');
+});
 
   //  app.use(bodyParser.urlencoded({ extended: false }));
   //  app.get('/', async (req, res) => {
