@@ -9,7 +9,14 @@ const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
+app.use(cors(
+  {
+    origin:['https://finance-tracker-frontend-one.vercel.app'],
+    methods: ['POST', 'GET'],
+    credentials: true
+  }
+));
 app.use('/api/user/', userRoutes);
 
 app.get('/', (req, res) => {

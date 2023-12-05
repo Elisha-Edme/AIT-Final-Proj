@@ -1,4 +1,5 @@
-import React, { useState, useHistory } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
@@ -6,7 +7,7 @@ const Register = () => {
         name: '',
         password: '',
     });
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,9 +30,9 @@ const Register = () => {
         const postData = {name, password};
         const sendPostRequest = async () => {
             try {
-                const response = await axios.post(apiUrl, postData);
+                const response = await axios.post(api_url, postData);
                 console.log('Response:', response.data);
-                history.push('/');
+                navigate('/');
             } catch (error) {
                 console.error('Error:', error);
             }
