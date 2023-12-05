@@ -5,21 +5,21 @@ const mongoose = require('mongoose')
 const cors = require('cors');
 const Purchase = require('./models/purchaseModel');
 const User = require('./models/userModel');
-const userRoutes = require('./routes/workoutRoutes');
+const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 const app = express();
 app.use(express.json())
 app.use('/api/', userRoutes);
 
+app.get('/', (req, res) => {
+  res.json('Hello');
+});
 const connect = async () => mongoose.connect(process.env.MONGO_URI);
 connect().then(() => {
   console.log('MongoDB connected properly!')
   app.listen(process.env.PORT || 3000)
 }).catch(console.log);
-app.get('/', (req, res) => {
-  res.json('Hello');
-});
 
   //  app.use(bodyParser.urlencoded({ extended: false }));
   //  app.get('/', async (req, res) => {
