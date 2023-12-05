@@ -7,6 +7,7 @@ const Register = () => {
         name: '',
         password: '',
     });
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -30,16 +31,20 @@ const Register = () => {
         const postData = {name, password};
         const sendPostRequest = async () => {
             const response = await axios.post(api_url, postData);
-            console.log('Response:', response.data);
-            navigate('/');
+            console.log('Response:', response);
+            if (response.status != 200)
+            {
+                setFormData({
+                    name: '',
+                    password: '',
+                });
+                document.getElementById('error').classList.remove('gone');
+                setMessage(response.data.message);
+            }
+            else {
+                navigate('/');
+            }
         };
-        
-        // Clear the form after submission
-        setFormData({
-            name: '',
-            password: '',
-        });
-        // Call the function
         sendPostRequest();
     };
 
@@ -73,6 +78,7 @@ const Register = () => {
                     <button type="submit">Register</button>
                 </div>
             </form>
+            <div id="error" className={styles.gone}><h3>{message}</h3></div>
         </div>
     );
 };
@@ -87,6 +93,10 @@ const styles = {
         width: '300px',
         margin: 'auto',
         marginTop: '50px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     form: {
         display: 'flex',
@@ -97,6 +107,9 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
     },
+    gone: {
+        display:'none'
+    }
 };
 
 export default Register;
