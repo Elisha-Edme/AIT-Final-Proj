@@ -28,4 +28,4 @@ app.post('/addPurchase', (req, res) => {
 });
 app.use(session(sessionOptions));
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3001);
