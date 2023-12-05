@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors(
   {
-    origin:['https://finance-tracker-frontend-one.vercel.app', 'localhost:3000'],
+    origin:['https://finance-tracker-frontend-one.vercel.app', 'http://localhost:3000'],
     methods: ['POST', 'GET'],
     credentials: true
   }
