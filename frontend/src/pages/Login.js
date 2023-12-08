@@ -24,14 +24,11 @@ const Login = () => {
         // Sanitize input using mongo-sanitize
         const {name, password} = formData;
 
-        // Submit the sanitized data to your backend for registration
-        // Example: sendFormDataToServer({ username: sanitizedUsername, email: sanitizedEmail, password: sanitizedPassword });
         const api_url = 'https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/user/login';
         // const api_url = 'http://localhost:8080/api/user/login';
         const postData = {name, password};
         const sendPostRequest = async () => {
             const response = await axios.post(api_url, postData);
-            // console.log('Response:', response);
             if (response.status != 200)
             {
                 setFormData({
@@ -42,7 +39,9 @@ const Login = () => {
                 setMessage(response.data.message);
             }
             else {
-                navigate('/');
+                const {token, name, id} = response.data;
+                console.log(response.data);
+                navigate(`/${id}`);
             }
         };
         sendPostRequest();

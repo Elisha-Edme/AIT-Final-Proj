@@ -19,7 +19,7 @@ const Register = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Sanitize input using mongo-sanitize
@@ -45,7 +45,7 @@ const Register = () => {
                 navigate('/login');
             }
         };
-        sendPostRequest();
+        await sendPostRequest();
     };
 
     return (
