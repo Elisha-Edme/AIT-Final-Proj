@@ -8,13 +8,15 @@ const Welcome = () => {
     const {uid} = useParams();
     const navigate = useNavigate();
     const getPurchases = async (_id) => {
-        const data = await axios.get(`https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`);
-        if (data.status != 200) {
-            console.log(data);
+        const response = await axios.get(`https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`);
+        if (response && response.status != 200) {
+            console.log(response);
             navigate('/');
         }
         else {
-            console.log(data);
+            console.log(typeof response);
+            const data = response.data;
+            console.log(data)
             localStorage.setItem('name', data.name);
             const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
             setPurchases(data.purchases.map(async (pid)=> {
