@@ -16,11 +16,11 @@ const Welcome = () => {
             }
             else {
                 console.log("resp: ", response);
-                const data = (response.data);
+                const data = response.data;
                 console.log("data: ", data);
                 localStorage.setItem('name', data['name']);
                 const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
-                const purchaseDetailsPromises = userData.purchases.map(async (pid) => {
+                const purchaseDetailsPromises = data.purchases.map(async (pid) => {
                     const resp = await axios.get(`${api_url}${pid}`);
                     return resp.data; // Assuming the response contains the purchase details
                   });
