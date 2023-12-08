@@ -40,7 +40,7 @@ const Login = () => {
             }
             else {
                 const {token, name, id} = response.data;
-                console.log(response.data);
+                // console.log(response.data);
                 navigate(`/${id}`);
             }
         };

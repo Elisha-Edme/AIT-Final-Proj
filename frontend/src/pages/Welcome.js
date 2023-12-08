@@ -6,17 +6,21 @@ import { useParams } from 'react-router-dom';
 const Welcome = () => {
     const [purchases, setPurchases] = useState([]);
     const {uid} = useParams();
+    console.log(uid)
     const navigate = useNavigate();
     const getPurchases = async (_id) => {
         const data = await axios.get(`https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`);
-        if (data.status != "OK") {
+        if (data.status != 200) {
             console.log(data);
             navigate('/');
         }
         else {
             localStorage.setItem('name', data.name);
             const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
-            setPurchases(data.purchases.map(async (pid)=> await axios.get(`${api_url}${pid}`)));
+            setPurchases(data.purchases.map(async (pid)=> {
+                const resp = await axios.get(`${api_url}${pid}`);
+                return resp.json();
+            }));
         }
     };
     useEffect(() => {getPurchases(uid);},[]);
