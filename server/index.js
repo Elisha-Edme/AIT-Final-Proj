@@ -9,13 +9,13 @@ const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 const app = express();
-app.use(express.json());
 app.use(cors({
   //origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-api-elisha-edmes-projects.vercel.app', 'http://localhost:3000'],
-  origin: ['*'],
+  origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-frontend-one.vercel.app/register', , 'https://finance-tracker-frontend-one.vercel.app/login', 'http://127.0.0.1:3000'],
   methods: ['POST', 'GET'],
   credentials: true
 }));
+app.use(express.json());
 app.use('/api/user/', userRoutes);
 
 app.get('/', (req, res) => {
