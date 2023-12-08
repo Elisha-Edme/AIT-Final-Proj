@@ -5,20 +5,27 @@ const sanitize = require('mongo-sanitize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-router.get('/:uid/purchases', async (req, res) => {
-    let {name, password} = req.body
-    name = sanitize(name);
-    password = sanitize(password);
-    const user = await User.findOne({name: name});
-    if (user && await bcrypt.compare(password, user.password)) {
-        const token = createToken(user._id);
-        res.status(200).json({token, name, message:'Success!'});
+router.get('/user/:uid', async (req, res) => {
+    const user = await User.findById(req.params.uid);
+    if (user) {
+        console.log(user);
+        res.status(200).json({"purchases": user.purchases, name:user.name});
         console.log(user);
     } else {
-        res.status(201).json({ message: 'User not found!', name:name, password:password });
+        res.status(404).json({ message: 'User not found!'});
     }
 })
 
+router.get('/:pid', async (req, res) => {
+    const user = await Purchase.findById({_id: req.params.pid});
+    if (user) {
+        console.log(user);
+        res.status(200).json(user);
+        console.log(user);
+    } else {
+        res.status(404).json({ message: 'Purchase not found!'});
+    }
+})
 // router.post('/register', async (req, res) => {
 //     let {name, password} = req.body;
 //     name = sanitize(name);

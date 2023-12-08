@@ -6,17 +6,19 @@ const cors = require('cors');
 const Purchase = require('./models/purchaseModel');
 const User = require('./models/userModel');
 const userRoutes = require('./routes/userRoutes');
+const purchaseRoutes = require('./routes/purchaseRoutes');
 require('dotenv').config();
 
 const app = express();
 app.use(cors({
   //origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-api-elisha-edmes-projects.vercel.app', 'http://localhost:3000'],
-  origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-frontend-one.vercel.app/register', 'https://finance-tracker-frontend-one.vercel.app/login', 'http://localhost:3000'],
+  origin: ['https://finance-tracker-frontend-one.vercel.app', 'http://localhost:3000'],
   methods: ['POST', 'GET'],
   credentials: true
 }));
 app.use(express.json());
 app.use('/api/user/', userRoutes);
+app.use('/api/purchases/', purchaseRoutes);
 
 app.get('/', (req, res) => {
   res.json('Hello');
