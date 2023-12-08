@@ -22,7 +22,7 @@ const Welcome = () => {
                 const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
                 const lst = [];
                 const getDetails = async (ind) => {
-                    if (ind < data.purchases.Length) {
+                    if (ind < data.purchases.length) {
                         const pid = data.purchases[ind];
                         axios.get(`${api_url}${pid}`).then(details => {
                             lst.push(details);
