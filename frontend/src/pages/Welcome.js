@@ -14,9 +14,9 @@ const Welcome = () => {
             navigate('/');
         }
         else {
-            console.log(typeof response);
+            console.log("resp: ", response);
             const data = response.data;
-            console.log(data)
+            console.log("data: ", data);
             localStorage.setItem('name', data.name);
             const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
             setPurchases(data.purchases.map(async (pid)=> {
