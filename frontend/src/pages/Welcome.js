@@ -21,12 +21,11 @@ const Welcome = () => {
             const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
             setPurchases(data['purchases'].map(async (pid)=> {
                 const resp = await axios.get(`${api_url}${pid}`);
-                return resp.json();
+                return resp;
             }));
         }
     };
     useEffect(() => {getPurchases(uid);},[]);
-    getPurchases(uid);
     return (<div>
         <h1>Welcome Lil Bro</h1>
         <table>
