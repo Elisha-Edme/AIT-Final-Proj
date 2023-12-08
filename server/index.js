@@ -11,7 +11,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors({
   //origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-api-elisha-edmes-projects.vercel.app', 'http://localhost:3000'],
-  origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-frontend-one.vercel.app/register', 'https://finance-tracker-frontend-one.vercel.app/login', 'http://127.0.0.1:3000'],
+  origin: ['https://finance-tracker-frontend-one.vercel.app', 'https://finance-tracker-frontend-one.vercel.app/register', 'https://finance-tracker-frontend-one.vercel.app/login', 'http://localhost:3000'],
   methods: ['POST', 'GET'],
   credentials: true
 }));
@@ -26,16 +26,3 @@ connect().then(() => {
   console.log('MongoDB connected properly!')
   app.listen(process.env.PORT)
 }).catch(console.log);
-
-  //  app.use(bodyParser.urlencoded({ extended: false }));
-  //  app.get('/', async (req, res) => {
-  //   try {
-  //     const users = await UserModel.find({});
-  //     console.log('Documents found:', users);
-  //     await UserModel.create({'name':'test2', 'password':'pw2'});
-  //     console.log(`New Docs: ${await UserModel.find({})}`);
-  //   } catch (error) {
-  //     console.error('Error fetching documents:', error);
-  //     res.status(500).json({ error: 'Internal Server Error' });
-  //   }
-  // });   
