@@ -20,20 +20,26 @@ const Welcome = () => {
                 console.log("data: ", data);
                 localStorage.setItem('name', data['name']);
                 const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
-                const purchaseDetailsPromises = data.purchases.map(async (pid) => {
-                    const resp = await axios.get(`${api_url}${pid}`);
-                    return resp.data; // Assuming the response contains the purchase details
-                  });
-            
-                const purchaseDetails = await Promise.all(purchaseDetailsPromises);
-                setPurchases(purchaseDetails);
+                const lst = [];
+                const getDetails = async (ind) => {
+                    if (ind < data.purchases.Length) {
+                        const pid = data.purchases[ind];
+                        axios.get(`${api_url}${pid}`).then(details => {
+                            lst.push(details);
+                            getDetails(ind + 1);
+                        });
+                    }
+                }
+                getDetails(0).then(setPurchases(lst));
             }
         })
         
     };
     useEffect(() => {
-        getPurchases(uid);},[]);
-    console.log(purchases);
+        getPurchases(uid).then(resp => {
+            console.log(purchases);
+        });
+    },[]);
     return (<div>
         <h1>Welcome Lil Bro</h1>
         <table>
