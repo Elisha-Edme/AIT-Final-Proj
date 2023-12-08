@@ -30,7 +30,8 @@ const Welcome = () => {
                         });
                     }
                 }
-                getDetails(0).then(setPurchases(lst));
+                
+                getDetails(0).then(resp => {setPurchases(lst); console.log(lst);});
             }
         })
         
