@@ -26,6 +26,7 @@ const Welcome = () => {
         }
     };
     useEffect(() => {getPurchases(uid);},[]);
+    console.log(purchases);
     return (<div>
         <h1>Welcome Lil Bro</h1>
         <table>
