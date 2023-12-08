@@ -5,18 +5,19 @@ const sanitize = require('mongo-sanitize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// Code From NetNinja (taught how to use JWT)
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' });
 };
+
 router.post('/login', async (req, res) => {
     let {name, password} = req.body
     name = sanitize(name);
     password = sanitize(password);
-
-    const user = await User.findOne({name: name});
-    // res.status(200).json(user);
-    if (user && user.comparePassword(password)) {
-        res.status(200).json({message:'Success'});
+    const user = await User.findOne({name: name.toUpperCase()});
+    if (user && await bcrypt.compare(password, user.password)) {
+        const token = createToken(user._id);
+        res.status(200).json({token, name, message:'Success!'});
         console.log(user);
     } else {
         res.status(201).json({ message: 'User not found!', name:name, password:password });
@@ -30,17 +31,17 @@ router.post('/register', async (req, res) => {
     // if a user is already in the db with that username
     const user = await User.findOne({name: name});
     if (user) {
-        res.status(201).json({ message: `"${name}" is already a user. Please use a different name` });
+        res.status(201).json({ message: `${name} is already a user. Please use a different name` });
     }
     else {
         const salt = await bcrypt.genSalt();
         const hash = await bcrypt.hash(password, salt);
         const newUser = new User({ name, password: hash });
-
+        const token = createToken(user_id);
         // Save the user to the database
         await newUser.save();
 
-        res.status(201).json({ message: 'User added successfully' });
+        res.status(200).json({name, token});
     }
 });
 

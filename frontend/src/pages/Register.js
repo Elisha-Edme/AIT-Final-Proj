@@ -42,7 +42,7 @@ const Register = () => {
                 setMessage(response.data.message);
             }
             else {
-                navigate('/');
+                navigate('/login');
             }
         };
         sendPostRequest();
