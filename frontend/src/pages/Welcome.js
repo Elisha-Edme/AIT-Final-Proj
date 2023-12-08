@@ -8,24 +8,31 @@ const Welcome = () => {
     const {uid} = useParams();
     const navigate = useNavigate();
     const getPurchases = async (_id) => {
-        const response = await axios.get(`https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`);
-        if (response && response.status != 200) {
-            console.log(response);
-            navigate('/');
-        }
-        else {
-            console.log("resp: ", response);
-            const data = (response.data)['user'];
-            console.log("data: ", data);
-            localStorage.setItem('name', data['name']);
-            const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
-            setPurchases(data['purchases'].map(async (pid)=> {
-                const resp = await axios.get(`${api_url}${pid}`);
-                return resp;
-            }));
-        }
+        axios.get(`https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`)
+        .then(async response =>  {
+            if (response && response.status != 200) {
+                console.log(response);
+                navigate('/');
+            }
+            else {
+                console.log("resp: ", response);
+                const data = (response.data)['user'];
+                console.log("data: ", data);
+                localStorage.setItem('name', data['name']);
+                const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
+                const purchaseDetailsPromises = userData.purchases.map(async (pid) => {
+                    const resp = await axios.get(`${api_url}${pid}`);
+                    return resp.data; // Assuming the response contains the purchase details
+                  });
+            
+                const purchaseDetails = await Promise.all(purchaseDetailsPromises);
+                setPurchases(purchaseDetails);
+            }
+        })
+        
     };
-    useEffect(() => {getPurchases(uid);},[]);
+    useEffect(() => {
+        getPurchases(uid);},[]);
     console.log(purchases);
     return (<div>
         <h1>Welcome Lil Bro</h1>
