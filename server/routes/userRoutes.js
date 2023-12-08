@@ -16,7 +16,7 @@ router.post('/login', async (req, res) => {
     password = sanitize(password);
     const user = await User.findOne({name: name.toUpperCase()});
     if (user && await bcrypt.compare(password, user.password)) {
-        const token = 'createToken(user._id)';
+        const token = createToken(user._id);
         res.status(200).json({token, name, message:'Success!'});
         console.log(user);
     } else {
@@ -37,7 +37,7 @@ router.post('/register', async (req, res) => {
         const salt = await bcrypt.genSalt();
         const hash = await bcrypt.hash(password, salt);
         const newUser = new User({ name, password: hash });
-        const token = 'createToken(user_id)';
+        const token = createToken(user_id);
         // Save the user to the database
         await newUser.save();
 
