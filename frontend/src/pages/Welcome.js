@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 const Welcome = () => {
     const [purchases, setPurchases] = useState([]);
     const {uid} = useParams();
-    console.log(uid)
     const navigate = useNavigate();
     const getPurchases = async (_id) => {
         const data = await axios.get(`https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`);
@@ -24,7 +23,7 @@ const Welcome = () => {
         }
     };
     useEffect(() => {getPurchases(uid);},[]);
-    
+    getPurchases(uid);
     return (<div>
         <h1>Welcome Lil Bro</h1>
         <table>
