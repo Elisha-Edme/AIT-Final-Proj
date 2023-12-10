@@ -78,8 +78,8 @@ const Welcome = () => {
   }, [uid, navigate]);
   const getPurchases = async (_id) => {
     try {
-      //const api_url = `https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`
-      const api_url = `http://localhost:8080/api/purchases/user/${uid}`
+      const api_url = `https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`
+      //const api_url = `http://localhost:8080/api/purchases/user/${uid}`
       const response = await axios.get(api_url);
 
       if (response.status !== 200) {
