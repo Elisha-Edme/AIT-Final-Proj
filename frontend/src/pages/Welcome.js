@@ -27,33 +27,33 @@ const Welcome = () => {
     useEffect(() => {
         getPurchases(uid).then(resp => {
             console.log(purchases);
-            return (<div>
-                <h1>Welcome Lil Bro</h1>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Retailer</th>
-                      <th>Bought Time</th>
-                      <th>Cost</th>
-                      <th>Method</th>
-                      <th>Category</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {purchases.map((purchase, index) => (
-                      <tr key={index}>
-                        <td>{purchase.retailer}</td>
-                        <td>{purchase.boughtTime}</td>
-                        <td>{purchase.cost}</td>
-                        <td>{purchase.method}</td>
-                        <td>{purchase.category}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>)
-        });
     },[]);
+    return (<div>
+      <h1>Welcome Lil Bro</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Retailer</th>
+            <th>Bought Time</th>
+            <th>Cost</th>
+            <th>Method</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {purchases.map((purchase, index) => (
+            <tr key={index}>
+              <td>{purchase.retailer}</td>
+              <td>{purchase.boughtTime}</td>
+              <td>{purchase.cost}</td>
+              <td>{purchase.method}</td>
+              <td>{purchase.category}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>)
+});
 };
 
 export default Welcome;
