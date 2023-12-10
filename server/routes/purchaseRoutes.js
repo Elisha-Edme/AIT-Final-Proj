@@ -13,7 +13,9 @@ router.get('/user/:uid', async (req, res) => {
             if (ind < user['purchases'].length) {
                 console.log('lst', lst);
                 const pid = user['purchases'][ind];
+                console.log('pi', pid);
                 const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
+                //const api_url = "http://localhost:8080/api/purchases/"
                 await axios.get(`${api_url}${pid}`).then(async details => {
                     console.log(details.data);
                     lst.push(details.data);
@@ -22,9 +24,8 @@ router.get('/user/:uid', async (req, res) => {
                 }).catch(console.log);
             }
         }
-        getDetails(0).then(response => {
-            console.log('resp', response);
-            res.status(200).json({"purchases":lst, name:user['name']});
+        await getDetails(0).then( async (response) => {
+            await res.status(200).json({"purchases":lst, name:user['name']});
             console.log(lst);
         });
     } else {
