@@ -25,7 +25,7 @@ const Login = () => {
         const {name, password} = formData;
 
         const api_url = 'https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/user/login';
-        // const api_url = 'http://localhost:8080/api/user/login';
+        //const api_url = 'http://localhost:8080/api/user/login';
         const postData = {name, password};
         const sendPostRequest = async () => {
             const response = await axios.post(api_url, postData);
