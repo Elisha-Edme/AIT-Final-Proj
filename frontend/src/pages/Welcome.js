@@ -19,21 +19,9 @@ const Welcome = () => {
                 const data = response.data;
                 console.log("data: ", data);
                 localStorage.setItem('name', data['name']);
-                const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
-                const lst = [];
-                const getDetails = async (ind) => {
-                    if (ind < data.purchases.length) {
-                        const pid = data.purchases[ind];
-                        axios.get(`${api_url}${pid}`).then(details => {
-                            lst.push(details);
-                            getDetails(ind + 1);
-                        });
-                    }
-                }
-                
-                getDetails(0).then(resp => {setPurchases(lst); console.log(lst);});
+                setPurchases(data['purchases'])
             }
-        })
+        }).catch(console.log);
         
     };
     useEffect(() => {

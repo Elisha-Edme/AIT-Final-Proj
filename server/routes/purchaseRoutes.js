@@ -4,12 +4,29 @@ const Purchase = require('../models/purchaseModel')
 const sanitize = require('mongo-sanitize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const axios = require('axios');
 router.get('/user/:uid', async (req, res) => {
-    const user = await User.findById(req.params.uid);
+    let user = await User.findById(req.params.uid);
     if (user) {
-        console.log(user);
-        res.status(200).json(user);
+        const lst = [];
+        const getDetails = async (ind) => {
+            if (ind < user['purchases'].length) {
+                console.log('lst', lst);
+                const pid = user['purchases'][ind];
+                const api_url = "https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/"
+                await axios.get(`${api_url}${pid}`).then(async details => {
+                    console.log(details.data);
+                    lst.push(details.data);
+                    console.log('lst2', lst);
+                    await getDetails(ind + 1);
+                }).catch(console.log);
+            }
+        }
+        getDetails(0).then(response => {
+            console.log('resp', response);
+            res.status(200).json({"purchases":lst, name:user['name']});
+            console.log(lst);
+        });
     } else {
         res.status(404).json({ message: 'User not found!'});
     }
