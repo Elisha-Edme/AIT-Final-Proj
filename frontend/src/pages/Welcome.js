@@ -67,6 +67,7 @@ const Welcome = () => {
   };
   return (
     <div>
+      <p>{JSON.stringify(purchases)}</p>
       <table style={tableStyle}>
         <thead>
           <tr>
