@@ -108,20 +108,14 @@ const Statistics = () => {
         const getPurchases = async () => {
           try {
             const api_url = `https://finance-tracker-api-elisha-edmes-projects.vercel.app/api/purchases/user/${_id}`
-            // const api_url = `http://localhost:8080/api/purchases/user/${_id}`
             const response = await axios.get(api_url);
       
             if (response.status !== 200) {
-              console.log(response);
               navigate('/');
             } else {
               const data = response.data;
               const p = data.purchases;
-              console.log('data', data.purchases);
-              localStorage.setItem("name", data.name);
-              console.log('p', p)
               setPurchases(p);
-              console.log('purchases', purchases, p);
             }
           } catch (error) {
             console.error(error);
@@ -137,7 +131,9 @@ const Statistics = () => {
     return (
         <div>
             <h2 className='heading'>Here are some stats for you</h2>
-            <Link to={`/${_id}`}>Come Home Bitch</Link>
+            <button>
+                <Link to={`/${_id}`}>View Purchases</Link>
+            </button>
             <table>
                 <thead>
                     <tr>
@@ -168,13 +164,9 @@ const Statistics = () => {
                     </tr>
                 </tbody>
             </table>
-            {/* <p>{JSON.stringify(graphic.compiled)}</p> */}
-            {/* <div id='Retailer'>{graphic.makeFreqGraph("Retailer")}</div> */}
             <div id='Retailer' className='graph'>{graphic.makeGraph("Retailer")}</div>
             <div id='Category' className='graph'>{graphic.makeGraph("Category")}</div>
             <div id='BoughtTime' className='graph'>{graphic.makeGraph("BoughtTime")}</div>
-            {/* <div id='Category'></div>
-            <div id='Date'></div> */}
         </div>
     )
 }
