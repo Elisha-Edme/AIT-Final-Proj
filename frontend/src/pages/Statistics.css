@@ -1,0 +1,55 @@
+/* Apply vibrant styling to the container */
+div {
+  margin: 20px;
+  padding: 20px;
+  /* border: 2px solid #3498db;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(52, 152, 219, 0.3); */
+  /* background-color: #ecf0f1;  */
+}
+
+/* Style the heading with a vibrant color */
+h2 {
+  font-size: 28px;
+  color: #e74c3c; /* Red */
+  margin-bottom: 20px;
+}
+
+/* Style the table with a subtle background color */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+/* Style table headers with a different background color */
+th {
+  background-color: #3498db; /* Blue */
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Style table cells with padding and subtle background color */
+td {
+  padding: 12px;
+}
+
+/* Apply a light background to even rows for better readability */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray */
+}
+
+/* Style the chart container with a gradient background */
+.graph {
+  margin-top: 20px;
+  background: linear-gradient(to right, #27ae60, #3498db); /* Green to Blue gradient */
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Add more styles for other chart containers if needed */
+/* #Category { ... } */
+/* #Date { ... } */

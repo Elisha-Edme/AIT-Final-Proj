@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -65,6 +65,9 @@ const Welcome = () => {
   const handleClick = () => {
     navigate(`/${_id}/addPurchase`);
   };
+  const handleStats = () => {
+    navigate(`/statistics/${_id}`);
+  };
   return (
     <div>
       <table style={tableStyle}>
@@ -91,6 +94,9 @@ const Welcome = () => {
       </table>
       <button style={buttonStyle} onClick={() => handleClick()}>
         Add New Purchase
+      </button>
+      <button style={buttonStyle} onClick={() => {handleStats()}}>
+        View Statistics
       </button>
     </div>
   );

@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import AddPurchase from './pages/AddPurchase';
 import Login from './pages/Login';
 import Welcome from './pages/Welcome';
+import Statistics from './pages/Statistics';
 // import Home from './pages/Home';
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='/:_id/addPurchase' element={<AddPurchase />} />
             <Route path='/:_id' element={<Welcome />} />
+            <Route path='/statistics/:_id' element={<Statistics />} />
           </Routes>
       </BrowserRouter>
     </div>
