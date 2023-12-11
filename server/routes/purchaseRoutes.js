@@ -5,6 +5,7 @@ const sanitize = require('mongo-sanitize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
+const mongoose = require('mongoose')
 router.get('/user/:uid', async (req, res) => {
     let user = await User.findById(req.params.uid);
     if (user) {
@@ -43,6 +44,39 @@ router.get('/:pid', async (req, res) => {
         res.status(404).json({ message: 'Purchase not found!'});
     }
 })
+
+router.post('/addPurchase/:_id', async (req, res) => {
+    try {
+        const userId = req.params._id;
+        console.log(userId);
+        // Check if userId is defined and is a valid ObjectId
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid user ID" });
+        }
+
+        const user = await User.findOne({ _id: userId });
+        if (user) {
+            const purch = await Purchase.create({ ...req.body });
+
+            // Assuming you have validations or required fields in your Purchase schema,
+            // you might want to check if the creation of Purchase was successful.
+            if (purch) {
+                user.purchases.push(purch._id);
+                await user.save();
+                res.status(200).json({ user, purch });
+            } else {
+                res.status(501).json({ message: "Invalid data for Purchase" });
+            }
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+
 // router.post('/register', async (req, res) => {
 //     let {name, password} = req.body;
 //     name = sanitize(name);
